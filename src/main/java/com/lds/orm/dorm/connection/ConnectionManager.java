@@ -10,13 +10,14 @@ import java.util.*;
 /**
  * Title: ConnectionManager
  * <p>
- * Description:
+ * Description:  过时的连接管理
  * </p>
  *
  * @author liudongshun
  * @version V1.0
  * @since 2018/07/11
  */
+@Deprecated
 public class ConnectionManager {
 
     private static ThreadLocal<Connection> threadLocal = new ThreadLocal<>();
