@@ -1,5 +1,7 @@
-package com.lds.orm.dorm.connection;
+package com.lds.orm.dorm.connection.wrapper;
 
+import com.lds.orm.dorm.connection.ConnectionExceptionCount;
+import com.lds.orm.dorm.connection.ConnectionPool;
 import com.lds.orm.dorm.exception.ConnectionException;
 
 import java.sql.*;
