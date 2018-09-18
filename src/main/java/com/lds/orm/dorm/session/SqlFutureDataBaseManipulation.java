@@ -27,105 +27,81 @@ import java.util.concurrent.Future;
 
 /**
  * class       :  FutureDataBaseManipulation
- * @author     :  lds
- * @version    :  1.0  
+ * @version    :  1.0
  * description :  异步数据库操作接口
  * @see        :  *
  */
-public interface FutureDataBaseManipulation {
+public interface SqlFutureDataBaseManipulation {
 	/**
 	 * method name   : ftSave 
 	 * description   : 异步保存
 	 * @return       : Future<Integer>
-	 * @param        : @param o
+	 * @param        : @param sql 保存SQL
+	 * @param        : @param params 参数
 	 * @param        : @return
 	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
-	Future<Integer> ftSave(Object o);
+	Future<Integer> ftSqlSave(String sql, Object... params);
 	/**
-	 * method name   : ftDelete 
+	 * method name   : ftDelete
 	 * description   : 异步删除
 	 * @return       : Future<Integer>
-	 * @param        : @param o
+	 * @param        : @param sql 删除SQL
+	 * @param        : @param params 参数
 	 * @param        : @return
 	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
-	Future<Integer> ftDelete(Object o);
+	Future<Integer> ftSqlDelete(String sql, Object... params);
 	/**
-	 * method name   : ftUpdate 
+	 * method name   : ftUpdate
 	 * description   : 异步更新
 	 * @return       : Future<Integer>
-	 * @param        : @param o
+	 * @param        : @param sql 更新SQL
+	 * @param        : @param params 参数
 	 * @param        : @return
 	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
-	Future<Integer> ftUpdate(Object o);
+	Future<Integer> ftSqlUpdate(String sql, Object... params);
 	/**
-	 * method name   : ftGet 
+	 * method name   : ftGet
 	 * description   : 异步查询
 	 * @return       : Future<Object>
-	 * @param        : @param o
-	 * @param        : @return
-	 * modified      : lds ,  2017年9月15日
-	 * @see          : *
-	 */
-	Future<Object> ftGet(Object o);
-	/**
-	 * method name   : ftGet 
-	 * description   : 异步查询
-	 * @return       : Future<Object>
-	 * @param        : @param o
+	 * @param        : @param sql 查询SQL
+	 * @param        : @param params 参数
 	 * @param        : @param clzz 返回值类型
 	 * @param        : @return
 	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
-	Future<Object> ftGet(Object o, Class<?> clzz);
+	Future<Object> ftSqlGet(String sql, Class<?> clzz, Object... params);
 	/**
-	 * method name   : ftList 
+	 * method name   : ftList
 	 * description   : 异步列表查询
 	 * @return       : Future<List<Object>>
-	 * @param        : @param o
-	 * @param        : @return
-	 * modified      : lds ,  2017年9月15日
-	 * @see          : *
-	 */
-	Future<List<Object>> ftList(Object o);
-	/**
-	 * method name   : ftList 
-	 * description   : 异步列表查询
-	 * @return       : Future<List<Object>>
-	 * @param        : @param o
+	 * @param        : @param sql 查询SQL
+	 * @param        : @param params 参数
 	 * @param        : @param clzz 返回值类型
 	 * @param        : @return
 	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
-	Future<List<Object>> ftList(Object o, Class<?> clzz);
+	Future<List<Object>> ftSqlList(String sql, Class<?> clzz, Object... params);
 	/**
-	 * method name   : ftPage 
+	 * method name   : ftPage
 	 * description   : 异步分页查询
 	 * @return       : Future<Page<Object>>
-	 * @param        : @param o
-	 * @param        : @return
-	 * modified      : lds ,  2017年9月15日
-	 * @see          : *
-	 */
-	Future<Page<Object>> ftPage(Object o);
-	/**
-	 * method name   : ftPage 
-	 * description   : 异步分页查询
-	 * @return       : Future<Page<Object>>
-	 * @param        : @param o
+	 * @param        : @param countSql 统计SQL
+	 * @param        : @param listSql 列表查询SQL
+	 * @param        : @param params 参数
 	 * @param        : @param clzz 返回值类型
 	 * @param        : @return
 	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
-	Future<Page<Object>> ftPage(Object o, Class<?> clzz);
+	Future<Page<Object>> ftSqlPage(String countSql, String listSql, Class<?> clzz, Object... params);
 
 
 }

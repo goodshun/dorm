@@ -1,252 +1,391 @@
+/**
+ * Copyright (c) 2017, lds 刘东顺 (994546508@qq.com).
+
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.lds.orm.dorm.session;
 
+
+import com.lds.orm.dorm.connection.ConnectionPool;
+import com.lds.orm.dorm.connection.ConnectionProcessor;
+import com.lds.orm.dorm.connection.config.DbConfig;
+import com.lds.orm.dorm.exception.SqlBuilderException;
 import com.lds.orm.dorm.model.Page;
+import com.lds.orm.dorm.sql.SqlInfo;
+import com.lds.orm.dorm.sql.builder.SqlBuilder;
+import com.lds.orm.dorm.sql.builder.SqlBuilderProcessor;
+import com.lds.orm.dorm.table.CreateTable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
- * Title: Session
- * <p>
- * Description:
- * </p>
- *
- * @author liudongshun
- * @version V1.0
- * @since 2018/08/09
+ * class       :  Session
+ * @author     :  lds
+ * @version    :  1.0  
+ * description :  Session类似数据源，且提供了一套操作数据库的API
+ * @see        :  *
  */
-public class Session implements ObjectOperationService,FutureObjectOperationService,SqlOperationService,FutureSqlOperationService,Transaction {
+public class Session implements DataBaseManipulation,SqlDataBaseManipulation,FutureDataBaseManipulation,SqlFutureDataBaseManipulation,Transaction {
+	private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
+	private static final Map<String,Session> sessionContainer = new HashMap<String, Session>();
+	private ConnectionProcessor connectionProcessor;
+	private ExecutorService futurePool;
+	private SqlBuilderProcessor sqlBuilderProcessor;
 
+	private Session(String jdbcConfigName) {
+		super();
+		DbConfig jdbcConfig = DbConfig.newInstance(jdbcConfigName);
+		connectionProcessor = new ConnectionProcessor(jdbcConfig);
+		sqlBuilderProcessor = new SqlBuilderProcessor(jdbcConfig.getDbType());
+		futurePool = Executors.newFixedThreadPool(jdbcConfig.getAsyncPoolSize());
+		if (jdbcConfig.getPackagePath()!=null) {
+			CreateTable createTable = new CreateTable(this,sqlBuilderProcessor,jdbcConfig.getPackagePath());
+			createTable.start();
+		}
+	}
+	
+	private DataSource getDataSource(){
+		return connectionProcessor.getDataSource();
+	}
+	
+	public static DataSource getDataSource(String jdbcConfigName){
+		return getSession(jdbcConfigName).getDataSource();
+	}
+	/**
+	 * method name   : getDefaultSession 
+	 * description   : 获取jdbc.setting文件配置的Session
+	 * @return       : Session
+	 * @param        : @return
+	 * modified      : lds ,  2017年9月15日
+	 * @see          : *
+	 */
+	public static Session getDefaultSession(){
+		try {
+			return getSession("jdbc.setting");
+		} catch (Exception e) {
+			LOGGER.warn("未配置默认数据源[jdbc.setting]");
+			return null;
+		}
+	}
+	/**
+	 * method name   : getSession 
+	 * description   : 获取Session
+	 * @return       : Session
+	 * @param        : @param jdbcName setting配置文件名
+	 * @param        : @return
+	 * modified      : lds ,  2017年9月15日
+	 * @see          : *
+	 */
+	public static Session getSession(String jdbcConfigName){
+		Session session = sessionContainer.get(jdbcConfigName);
+		if (session == null) {
+			session = new Session(jdbcConfigName);
+			sessionContainer.put(jdbcConfigName, session);
+		}
+		return session;
+	}
+	@Override
+	public int save(Object o) {
+		SqlInfo sqlInfo = sqlBuilderProcessor.getSql(SqlBuilder.SBType.SAVE, o);
+		return connectionProcessor.update(getConnection(), sqlInfo);
+	}
+	@Override
+	public int delete(Object o) {
+		SqlInfo sqlInfo = sqlBuilderProcessor.getSql(SqlBuilder.SBType.DELETE, o);
+		return connectionProcessor.update(getConnection(), sqlInfo);
+	}
+	
+	@Override
+	public int update(Object o) {
+		SqlInfo sqlInfo = sqlBuilderProcessor.getSql(SqlBuilder.SBType.UPDATE, o);
+		return connectionProcessor.update(getConnection(), sqlInfo);
+	}
+	
+	@Override
+	public Object get(Object o) {
+		return this.get(o, o.getClass());
+	}
+	
+	@Override
+	public Object get(Object o,Class<?> clzz) {
+		SqlInfo sqlInfo = sqlBuilderProcessor.getSql(SqlBuilder.SBType.GET, o);
+		return connectionProcessor.get(getConnection(), sqlInfo,clzz);
+	}
 
+	@Override
+	public List<Object> list(Object o) {
+		return this.list(o, o.getClass());
+	}
+	
+	@Override
+	public Page<Object> page(Object o) {
+		return page(o,o.getClass());
+	}
+	
+	@Override
+	public Page<Object> page(Object o,Class<?> clzz) {
+		Map<String,Integer> pageInfo = Page.getPageInfo();
+		if (pageInfo == null || pageInfo.get("pageNum")==null || pageInfo.get("pageSize")==null) {
+			throw new SqlBuilderException("PageNum or pageSize is null");
+		}
+		
+		SqlInfo countSqlInfo = sqlBuilderProcessor.getSql(SqlBuilder.SBType.PAGE_COUNT, o);
+		Integer total = (Integer) connectionProcessor.get(getConnection(), countSqlInfo,Integer.class);
+		
+		if (total == 0) {
+			Page<Object> page = new Page<Object>(pageInfo.get("pageNum"),pageInfo.get("pageSize"), total, new ArrayList<>());
+			return page;
+		}
+		
+		SqlInfo listSqlInfo = sqlBuilderProcessor.getSql(SqlBuilder.SBType.PAGE_LIST, o);
+		List<Object> list = connectionProcessor.list(getConnection(), listSqlInfo,clzz);
+		return new Page<Object>(pageInfo.get("pageNum"),pageInfo.get("pageSize"), total, list);
+	}
+	
+	@Override
+	public Page<Object> sqlPage(String countSql,String listSql, Class<?> clzz, Object ... params) {
+		Map<String,Integer> pageInfo = Page.getPageInfo();
+		if (pageInfo == null || pageInfo.get("pageNum")==null || pageInfo.get("pageSize")==null) {
+			throw new SqlBuilderException("PageNum or pageSize is null");
+		}
+		List<Object> paramList = Arrays.asList(params);
+		SqlInfo countSqlInfo = new SqlInfo(countSql, paramList);
+		Integer total = (Integer) connectionProcessor.get(getConnection(), countSqlInfo,Integer.class);
+		
+		if (total == 0) {
+			Page<Object> page = new Page<Object>(pageInfo.get("pageNum"),pageInfo.get("pageSize"), total, new ArrayList<Object>());
+			return page;
+		}
+		
+		SqlInfo listSqlInfo = new SqlInfo(listSql, paramList);
+		List<Object> list = connectionProcessor.list(getConnection(), listSqlInfo,clzz);
+		return new Page<Object>(pageInfo.get("pageNum"),pageInfo.get("pageSize"), total, list);
+	}
+	
+	@Override
+	public List<Object> list(Object o,Class<?> clzz) {
+		SqlInfo sqlInfo = sqlBuilderProcessor.getSql(SqlBuilder.SBType.LIST, o);
+		return connectionProcessor.list(getConnection(), sqlInfo,clzz);
+	}
+	
+	@Override
+	public int sqlSave(String sql, Object ... params) {
+		List<Object> paramList = Arrays.asList(params);
+		SqlInfo sqlInfo = new SqlInfo(sql, paramList);
+		return connectionProcessor.update(getConnection(), sqlInfo);
+	}
+	
+	@Override
+	public int sqlDelete(String sql, Object ... params) {
+		List<Object> paramList = Arrays.asList(params);
+		SqlInfo sqlInfo = new SqlInfo(sql, paramList);
+		return connectionProcessor.update(getConnection(), sqlInfo);
+	}
+	
+	@Override
+	public int sqlUpdate(String sql, Object ... params) {
+		List<Object> paramList = Arrays.asList(params);
+		SqlInfo sqlInfo = new SqlInfo(sql, paramList);
+		return connectionProcessor.update(getConnection(), sqlInfo);
+	}
+	
+	@Override
+	public Object sqlGet(String sql,Class<?> clzz, Object ... params) {
+		List<Object> paramList = Arrays.asList(params);
+		SqlInfo sqlInfo = new SqlInfo(sql, paramList);
+		return connectionProcessor.get(getConnection(), sqlInfo, clzz);
+	}
+	
+	@Override
+	public List<Object> sqlList(String sql,Class<?> clzz, Object ... params) {
+		List<Object> paramList = Arrays.asList(params);
+		SqlInfo sqlInfo = new SqlInfo(sql, paramList);
+		return connectionProcessor.list(getConnection(), sqlInfo, clzz);
+	}
+	
+	public Connection getConnection(){
+		return connectionProcessor.getConnection();
+	}
+	@Override
+	public void start(){
+		connectionProcessor.setAutoCommit(getConnection(), false);
+	}
+	@Override
+	public void rollback(){
+		connectionProcessor.rollback(getConnection());
+	}
+	@Override
+	public void commit(){
+		connectionProcessor.commit(getConnection());
+	}
+	@Override
+	public void close(){
+		connectionProcessor.close(getConnection());
+	}
+	
 
-    private static final Logger LOGGER = LogManager.getLogger(Session.class);
+	@Override
+	public Future<Integer> ftSave(Object o) {
+		return futurePool.submit(new Callable<Integer>() {
+			public Integer call() throws Exception {
+				return save(o);
+			}
+		});
+	}
 
+	@Override
+	public Future<Integer> ftDelete(Object o) {
+		return futurePool.submit(new Callable<Integer>() {
+			public Integer call() throws Exception {
+				return delete(o);
+			}
+		});
+	}
 
-    /**
-     * 保存数据
-     *
-     * @param o 保存数据类型
-     * @return 受影响行数
-     */
-    @Override
-    public int save(Object o) {
-        return 0;
-    }
+	@Override
+	public Future<Integer> ftUpdate(Object o) {
+		return futurePool.submit(new Callable<Integer>() {
+			public Integer call() throws Exception {
+				return update(o);
+			}
+		});
+	}
 
-    /**
-     * 删除了数据
-     *
-     * @param o 保存数据类型
-     * @return 受影响行数
-     */
-    @Override
-    public int delete(Object o) {
-        return 0;
-    }
+	@Override
+	public Future<Object> ftGet(Object o) {
+		return futurePool.submit(new Callable<Object>() {
+			public Object call() throws Exception {
+				return get(o);
+			}
+		});
+	}
 
-    /**
-     * update data
-     *
-     * @param o data
-     * @return affect rows
-     */
-    @Override
-    public int update(Object o) {
-        return 0;
-    }
+	@Override
+	public Future<Object> ftGet(Object o, Class<?> clzz) {
+		return futurePool.submit(new Callable<Object>() {
+			public Object call() throws Exception {
+				return get(o, clzz);
+			}
+		});
+	}
 
-    /**
-     * select data
-     *
-     * @param o select condition
-     * @return
-     */
-    @Override
-    public Object get(Object o) {
-        return null;
-    }
+	@Override
+	public Future<List<Object>> ftList(Object o) {
+		return futurePool.submit(new Callable<List<Object>>() {
+			public List<Object> call() throws Exception {
+				return list(o);
+			}
+		});
+	}
 
-    @Override
-    public List<Object> list(Object o) {
-        return null;
-    }
+	@Override
+	public Future<List<Object>> ftList(Object o, Class<?> clzz) {
+		return futurePool.submit(new Callable<List<Object>>() {
+			public List<Object> call() throws Exception {
+				return list(o, clzz);
+			}
+		});
+	}
 
-    /**
-     * select data
-     *
-     * @param o     select condition
-     * @param clazz 指定返回类型
-     * @return
-     */
-    @Override
-    public List<Object> list(Object o, Class<?> clazz) {
-        return null;
-    }
+	@Override
+	public Future<Integer> ftSqlSave(String sql, Object ... params) {
+		return futurePool.submit(new Callable<Integer>() {
+			public Integer call() throws Exception {
+				return sqlSave(sql, params);
+			}
+		});
+	}
 
-    @Override
-    public Page<Object> page(Object o) {
-        return null;
-    }
+	@Override
+	public Future<Integer> ftSqlDelete(String sql, Object ... params) {
+		return futurePool.submit(new Callable<Integer>() {
+			public Integer call() throws Exception {
+				return sqlUpdate(sql, params);
+			}
+		});
+	}
 
-    @Override
-    public Page<Object> page(Object o, Class<?> clazz) {
-        return null;
-    }
+	@Override
+	public Future<Integer> ftSqlUpdate(String sql, Object ... params) {
+		return futurePool.submit(new Callable<Integer>() {
+			public Integer call() throws Exception {
+				return sqlUpdate(sql, params);
+			}
+		});
+	}
 
-    @Override
-    public int sqlSave(String sql, Object... params) {
-        return 0;
-    }
+	@Override
+	public Future<Object> ftSqlGet(String sql, Class<?> clzz, Object ... params) {
+		return futurePool.submit(new Callable<Object>() {
+			public Object call() throws Exception {
+				return sqlGet(sql, clzz, params);
+			}
+		});
+	}
 
-    @Override
-    public int sqlDelete(String sql, Object... params) {
-        return 0;
-    }
+	@Override
+	public Future<List<Object>> ftSqlList(String sql, Class<?> clzz, Object ... params) {
+		return futurePool.submit(new Callable<List<Object>>() {
+			public List<Object> call() throws Exception {
+				return sqlList(sql, clzz, params);
+			}
+		});
+	}
 
-    @Override
-    public int sqlUpdate(String sql, Object... params) {
-        return 0;
-    }
+	@Override
+	public Future<Page<Object>> ftPage(Object o) {
+		return futurePool.submit(new Callable<Page<Object>>() {
+			public Page<Object> call() throws Exception {
+				return page(o);
+			}
+		});
+	}
 
-    @Override
-    public Object sqlGet(String sql, Class<?> clzz, Object... params) {
-        return null;
-    }
+	@Override
+	public Future<Page<Object>> ftPage(Object o, Class<?> clzz) {
+		return futurePool.submit(new Callable<Page<Object>>() {
+			public Page<Object> call() throws Exception {
+				return page(o,clzz);
+			}
+		});
+	}
 
-    @Override
-    public List<Object> sqlList(String sql, Class<?> clzz, Object... params) {
-        return null;
-    }
+	@Override
+	public Future<Page<Object>> ftSqlPage(String countSql, String listSql, Class<?> clzz, Object ... params) {
+		return futurePool.submit(new Callable<Page<Object>>() {
+			public Page<Object> call() throws Exception {
+				return sqlPage(countSql, listSql, clzz, params);
+			}
+		});
+	}
+//	@Override
+//	public int batchSave(List<?> list) {
+//		SqlInfo sqlInfo = sqlBuilderProcessor.getSql(SqlBuilder.SBType.BATCH_SAVE, list);
+//		return connectionProcessor.update(getConnection(), sqlInfo);
+//	}
 
-    @Override
-    public Page<Object> sqlPage(String countSql, String listSql, Class<?> clzz, Object... params) {
-        return null;
-    }
-
-
-    @Override
-    public Future<Integer> ftSave(Object o) {
-        return null;
-    }
-
-    @Override
-    public Future<Integer> ftDelete(Object o) {
-        return null;
-    }
-
-    @Override
-    public Future<Integer> ftUpdate(Object o) {
-        return null;
-    }
-
-    @Override
-    public Future<Object> ftGet(Object o) {
-        return null;
-    }
-
-    @Override
-    public Future<Object> ftGet(Object o, Class<?> clzz) {
-        return null;
-    }
-
-    @Override
-    public Future<List<Object>> ftList(Object o) {
-        return null;
-    }
-
-    @Override
-    public Future<List<Object>> ftList(Object o, Class<?> clzz) {
-        return null;
-    }
-
-    @Override
-    public Future<Page<Object>> ftPage(Object o) {
-        return null;
-    }
-
-    @Override
-    public Future<Page<Object>> ftPage(Object o, Class<?> clzz) {
-        return null;
-    }
-
-    @Override
-    public Future<Integer> ftSqlSave(String sql, Object... params) {
-        return null;
-    }
-
-    @Override
-    public Future<Integer> ftSqlDelete(String sql, Object... params) {
-        return null;
-    }
-
-    @Override
-    public Future<Integer> ftSqlUpdate(String sql, Object... params) {
-        return null;
-    }
-
-    @Override
-    public Future<Object> ftSqlGet(String sql, Class<?> clzz, Object... params) {
-        return null;
-    }
-
-    @Override
-    public Future<List<Object>> ftSqlList(String sql, Class<?> clzz, Object... params) {
-        return null;
-    }
-
-    @Override
-    public Future<Page<Object>> ftSqlPage(String countSql, String listSql, Class<?> clzz, Object... params) {
-        return null;
-    }
-
-
-    /**
-     * method name   : start
-     * description   : 开启事务
-     *
-     * @return : void
-     * @see : *
-     */
-    @Override
-    public void start() {
-
-    }
-
-    /**
-     * method name   : rollback
-     * description   : 回滚事务
-     *
-     * @return : void
-     * @see : *
-     */
-    @Override
-    public void rollback() {
-
-    }
-
-    /**
-     * method name   : commit
-     * description   : 提交事务
-     *
-     * @return : void
-     * @see : *
-     */
-    @Override
-    public void commit() {
-
-    }
-
-    /**
-     * method name   : close
-     * description   : 关闭事务
-     *
-     * @return : void
-     * @see : *
-     */
-    @Override
-    public void close() {
-
-    }
+	
+	
 }

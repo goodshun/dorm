@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017, ZhuKaipeng 朱开鹏 (2076528290@qq.com).
+ * Copyright (c) 2017, lds 刘东顺 (994546508@qq.com).
 
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -30,7 +30,7 @@ import java.util.concurrent.Future;
 
 /**
  * class       :  Model
- * @author     :  zhukaipeng
+ * @author     :  lds
  * @version    :  1.0  
  * description :  提供对象操作数据库的API，po继承此类，即可在po上通过简便的方式操作数据库
  * @see        :  @param <T>*
@@ -58,7 +58,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * description   : 设置session，Model通过此数据源操作数据库，若不设置，则默认使用jdbc.setting配置的数据源
 	 * @return       : void
 	 * @param        : @param session
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public void setSession(Session session){
@@ -69,7 +69,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * description   : 设置session，Model通过此数据源操作数据库，若不设置，则默认使用jdbc.setting配置的数据源
 	 * @return       : void
 	 * @param        : @param jdbcName
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public void setSession(String jdbcConfigName){
@@ -80,7 +80,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * description   : 获取表名
 	 * @return       : String
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public String tableName() {
@@ -92,7 +92,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @return       : T
 	 * @param        : @param tableName
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T tableName(String tableName) {
@@ -104,7 +104,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * description   : 获取查询条件
 	 * @return       : String
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public String where() {
@@ -119,7 +119,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @return       : T
 	 * @param        : @param where
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T where(String where,Object ... params) {
@@ -146,7 +146,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @return       : T
 	 * @param        : @param orderByAscs
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T orderByAsc(String...orderByAscs) {
@@ -165,7 +165,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @return       : T
 	 * @param        : @param orderByDescs
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T orderByDesc(String...orderByDescs) {
@@ -186,7 +186,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @return       : T
 	 * @param        : @param select
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T select(String ... selectKey) {
@@ -208,7 +208,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T pk(String column, Object value) {
@@ -223,7 +223,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @return       : T
 	 * @param        : @param pkAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T pk(Map<String, Object> pkAll) {
@@ -243,7 +243,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T insert(String column, Object value) {
@@ -258,7 +258,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @return       : T
 	 * @param        : @param insertAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T insert(Map<String, Object> insertAll) {
@@ -277,7 +277,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T modif(String column, Object value) {
@@ -292,7 +292,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @return       : T
 	 * @param        : @param modifAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T modif(Map<String, Object> modifAll) {
@@ -309,7 +309,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public int save(String column, Object value) {
@@ -322,7 +322,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @return       : int
 	 * @param        : @param insertAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public int save(Map<String,Object> insertAll) {
@@ -336,7 +336,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public int delete(String column, Object value) {
@@ -349,7 +349,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @return       : int
 	 * @param        : @param condition
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public int delete(Map<String,Object> condition) {
@@ -363,7 +363,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public int update(String column, Object value) {
@@ -377,7 +377,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param sql
 	 * @param        : @param param
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2018年1月28日
+	 * modified      : lds ,  2018年1月28日
 	 */
 	public int sqlUpdate(String sql,Object ... param) {
 		return session.sqlUpdate(sql,param);
@@ -388,7 +388,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @return       : int
 	 * @param        : @param modifAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public int update(Map<String,Object> modifAll) {
@@ -402,7 +402,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T get(String column, Object value) {
@@ -415,7 +415,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @return       : T
 	 * @param        : @param eqAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T get(Map<String,Object> eqAll) {
@@ -429,7 +429,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public List<T> list(String column, Object value) {
@@ -442,7 +442,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @return       : List<T>
 	 * @param        : @param eqAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public List<T> list(Map<String,Object> eqAll) {
@@ -454,7 +454,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * description   : 保存
 	 * @return       : int
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public int save() {
@@ -468,7 +468,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * description   : 删除
 	 * @return       : int
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public int delete() {
@@ -481,7 +481,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param sql
 	 * @param        : @param params
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2018年1月28日
+	 * modified      : lds ,  2018年1月28日
 	 */
 	public int sqlDelete(String sql,Object ... params) {
 		return session.sqlDelete(sql,params);
@@ -492,7 +492,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * description   : 更新
 	 * @return       : int
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public int update() {
@@ -503,7 +503,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * description   : 查询
 	 * @return       : T
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T get() {
@@ -514,7 +514,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * description   : 列表查询
 	 * @return       : List<T>
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public List<T> list() {
@@ -528,7 +528,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param clzz 返回值类型
 	 * @param        : @param params 参数
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Object sqlGet(String sql,Class<?> clzz, Object ... params) {
@@ -542,7 +542,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param params 参数
 	 * @param        : @param clzz 返回值类型
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public List<Object> sqlList(String sql,Class<?> clzz, Object ... params) {
@@ -555,7 +555,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param sql sql
 	 * @param        : @param params 参数
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T sqlGet(String sql, Object ... params) {
@@ -568,7 +568,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param sql sql
 	 * @param        : @param params 返回值类型
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public List<T> sqlList(String sql, Object ... params) {
@@ -581,10 +581,10 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param pageNum 当前页
 	 * @param        : @param pageSize 每页条数
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
-	public Page<T> page(Integer pageNum,Integer pageSize){
+	public Page<T> page(Integer pageNum, Integer pageSize){
 		return (Page<T>) this.page(pageNum, pageSize, this.getClass());
 	}
 	/**
@@ -595,10 +595,10 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param pageSize 每页条数
 	 * @param        : @param clzz 返回值类型
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
-	public Page<Object> page(Integer pageNum,Integer pageSize,Class<?> clzz){
+	public Page<Object> page(Integer pageNum, Integer pageSize, Class<?> clzz){
 		Page.page(pageNum, pageSize);
 		return session.page(this,clzz);
 	}
@@ -613,10 +613,10 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param params 参数
 	 * @param        : @param clzz 返回值类型
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
-	public Page<Object> sqlPage(Integer pageNum,Integer pageSize,String countSql,String listSql, Class<?> clzz, Object ... params){
+	public Page<Object> sqlPage(Integer pageNum, Integer pageSize, String countSql, String listSql, Class<?> clzz, Object ... params){
 		Page.page(pageNum, pageSize);
 		return session.sqlPage(countSql, listSql, clzz, params);
 	}
@@ -627,10 +627,10 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param pageNum 当前页
 	 * @param        : @param pageSize 每页条数
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
-	public Future<Page<Object>> ftPage(Integer pageNum,Integer pageSize){
+	public Future<Page<Object>> ftPage(Integer pageNum, Integer pageSize){
 		return this.ftPage(pageNum, pageSize, this.getClass());
 	}
 	/**
@@ -641,10 +641,10 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param pageSize 每页条数
 	 * @param        : @param clzz 返回值类型
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
-	public Future<Page<Object>> ftPage(Integer pageNum,Integer pageSize,Class<?> clzz){
+	public Future<Page<Object>> ftPage(Integer pageNum, Integer pageSize, Class<?> clzz){
 		Page.page(pageNum, pageSize);
 		return session.ftPage(this, clzz);
 	}
@@ -659,10 +659,10 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param params 参数
 	 * @param        : @param clzz 返回值类型
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
-	public Future<Page<Object>> ftSqlPage(Integer pageNum,Integer pageSize,String countSql,String listSql, Class<?> clzz, Object ... params){
+	public Future<Page<Object>> ftSqlPage(Integer pageNum, Integer pageSize, String countSql, String listSql, Class<?> clzz, Object ... params){
 		Page.page(pageNum, pageSize);
 		return session.ftSqlPage(countSql, listSql, clzz, params);
 	}
@@ -676,9 +676,9 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param listSql
 	 * @param        : @param clzz
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2018年1月28日
+	 * modified      : lds ,  2018年1月28日
 	 */
-	public Future<Page<Object>> ftSqlPage(Integer pageNum,Integer pageSize,String countSql,String listSql, Class<?> clzz){
+	public Future<Page<Object>> ftSqlPage(Integer pageNum, Integer pageSize, String countSql, String listSql, Class<?> clzz){
 		Page.page(pageNum, pageSize);
 		return session.ftSqlPage(countSql, listSql, clzz);
 	}
@@ -687,7 +687,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * description   : 异步保存
 	 * @return       : Future<Integer>
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Future<Integer> ftSave() {
@@ -700,7 +700,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Future<Integer> ftSave(String column,Object value) {
@@ -713,7 +713,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @return       : Future<Integer>
 	 * @param        : @param insertAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Future<Integer> ftSave(Map<String,Object> insertAll) {
@@ -725,7 +725,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * description   : 异步更新
 	 * @return       : Future<Integer>
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Future<Integer> ftUpdate() {
@@ -738,7 +738,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Future<Integer> ftUpdate(String column,Object value) {
@@ -751,7 +751,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @return       : Future<Integer>
 	 * @param        : @param insertAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Future<Integer> ftUpdate(Map<String,Object> insertAll) {
@@ -763,7 +763,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * description   : 异步查询
 	 * @return       : Future<T>
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Future<T> ftGet() {
@@ -776,7 +776,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Future<T> ftGet(String column,Object value) {
@@ -789,7 +789,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @return       : Future<T>
 	 * @param        : @param eqAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Future<T> ftGet(Map<String,Object> eqAll) {
@@ -801,7 +801,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * description   : 异步查询列表
 	 * @return       : Future<List<Object>>
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Future<List<Object>> ftList() {
@@ -814,7 +814,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Future<List<Object>> ftList(String column,Object value) {
@@ -827,7 +827,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @return       : Future<List<Object>>
 	 * @param        : @param eqAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Future<List<Object>> ftList(Map<String,Object> eqAll) {
@@ -842,7 +842,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param params
 	 * @param        : @param clzz 返回值类型
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Future<Object> ftSqlGet(String sql, Class<?> clzz, Object ... params) {
@@ -857,7 +857,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param params
 	 * @param        : @param clzz 返回值类型
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Future<List<Object>> ftSqlList(String sql, Class<?> clzz, Object ... params) {
@@ -870,7 +870,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param sql
 	 * @param        : @param params
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Future<List<Object>> ftSqlList(String sql, Object ... params) {
@@ -883,7 +883,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param sql
 	 * @param        : @param params
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Future<T> ftSqlGet(String sql, Object ... params) {
@@ -896,7 +896,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param sql
 	 * @param        : @param params
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2018年1月28日
+	 * modified      : lds ,  2018年1月28日
 	 */
 	public Future<T> ftSqlUpdate(String sql, Object ... params) {
 		return (Future<T>) session.ftSqlUpdate(sql, params);
@@ -908,7 +908,7 @@ public abstract class Model<T> extends ConditionSetting<T> {
 	 * @param        : @param sql
 	 * @param        : @param params
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2018年1月28日
+	 * modified      : lds ,  2018年1月28日
 	 */
 	public Future<T> ftSqlDelete(String sql, Object ... params) {
 		return (Future<T>) session.ftSqlDelete(sql, params);

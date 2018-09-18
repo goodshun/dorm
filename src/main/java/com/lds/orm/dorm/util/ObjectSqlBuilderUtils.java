@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017, ZhuKaipeng 朱开鹏 (2076528290@qq.com).
+ * Copyright (c) 2017, lds 刘东顺 (994546508@qq.com).
 
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,6 +19,15 @@
 
 package com.lds.orm.dorm.util;
 
+import com.lds.orm.dorm.cache.ClassCache;
+import com.lds.orm.dorm.common.Constants;
+import com.lds.orm.dorm.exception.SqlBuilderException;
+import com.lds.orm.dorm.model.ConditionConstants;
+import com.lds.orm.dorm.model.Model;
+import com.lds.orm.dorm.model.Schema;
+import com.lds.orm.dorm.sharding.Sharding;
+import com.lds.orm.dorm.sql.convert.FieldConvertProcessor;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -26,15 +35,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
-import kim.zkp.quick.orm.cache.ClassCache;
-import kim.zkp.quick.orm.common.Constants;
-import kim.zkp.quick.orm.exception.SqlBuilderException;
-import kim.zkp.quick.orm.model.ConditionConstants;
-import kim.zkp.quick.orm.model.Model;
-import kim.zkp.quick.orm.model.Schema;
-import kim.zkp.quick.orm.sharding.Sharding;
-import kim.zkp.quick.orm.sql.convert.FieldConvertProcessor;
 
 @SuppressWarnings("unchecked")
 public class ObjectSqlBuilderUtils {

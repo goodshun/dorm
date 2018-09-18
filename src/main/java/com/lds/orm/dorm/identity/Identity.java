@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017, ZhuKaipeng 朱开鹏 (2076528290@qq.com).
+ * Copyright (c) 2017, lds 刘东顺 (994546508@qq.com).
 
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -33,7 +33,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * class       :  Identity
- * @author     :  zhukaipeng
+ * @author     :  lds
  * @version    :  1.0  
  * description :  主键生成器 yyyyMMddmm+ip标识+两位随机数+7位自增序列
  * @see        :  *
@@ -86,7 +86,7 @@ public class Identity {
 	 * @return       : String
 	 * @param        : @param key 主键标识
 	 * @param        : @return 返回值格式:yyyyMMddHHmm+3位主机号+7位递增序列
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public static String nextId(String key) {
@@ -102,7 +102,7 @@ public class Identity {
 	 * description   : 获取主键，默认标识为default
 	 * @return       : String
 	 * @param        : @return 返回值格式:yyyyMMddHHmm+3位主机号+7位递增序列
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public static String nextId() {

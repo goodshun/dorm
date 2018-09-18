@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017, ZhuKaipeng 朱开鹏 (2076528290@qq.com).
+ * Copyright (c) 2017, lds 刘东顺 (994546508@qq.com).
 
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,11 +19,11 @@
 
 package com.lds.orm.dorm.sql.builder;
 
-import kim.zkp.quick.orm.cache.ClassCache;
-import kim.zkp.quick.orm.exception.SqlBuilderException;
-import kim.zkp.quick.orm.model.Schema;
-import kim.zkp.quick.orm.util.AnnotationSqlBuilderUtils;
-import kim.zkp.quick.orm.util.ObjectSqlBuilderUtils;
+import com.lds.orm.dorm.cache.ClassCache;
+import com.lds.orm.dorm.exception.SqlBuilderException;
+import com.lds.orm.dorm.model.Schema;
+import com.lds.orm.dorm.util.AnnotationSqlBuilderUtils;
+import com.lds.orm.dorm.util.ObjectSqlBuilderUtils;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	 * @return       : String
 	 * @param        : @param clzz
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年8月14日  下午2:38:16
+	 * modified      : lds ,  2017年8月14日  下午2:38:16
 	 * @see          : 
 	 * *******************************************
 	 */

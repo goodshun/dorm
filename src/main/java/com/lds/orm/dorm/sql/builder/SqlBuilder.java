@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017, ZhuKaipeng 朱开鹏 (2076528290@qq.com).
+ * Copyright (c) 2017, lds 刘东顺 (994546508@qq.com).
 
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,12 +19,13 @@
 
 package com.lds.orm.dorm.sql.builder;
 
-import kim.zkp.quick.orm.sql.SqlInfo;
+
+import com.lds.orm.dorm.sql.SqlInfo;
 
 /**
  * ******************  类说明  *********************
  * class       :  ISqlBuilder
- * @author     :  zhukaipeng
+ * @author     :  lds
  * @version    :  1.0  
  * description :  sql生成器接口
  * @see        :                        

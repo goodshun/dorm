@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017, ZhuKaipeng 朱开鹏 (2076528290@qq.com).
+ * Copyright (c) 2017, lds 刘东顺 (994546508@qq.com).
 
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,6 +19,15 @@
 
 package com.lds.orm.dorm.table;
 
+import com.lds.orm.dorm.annotation.Table;
+import com.lds.orm.dorm.connection.ConnectionPool;
+import com.lds.orm.dorm.session.Session;
+import com.lds.orm.dorm.sql.SqlInfo;
+import com.lds.orm.dorm.sql.builder.SqlBuilder;
+import com.lds.orm.dorm.sql.builder.SqlBuilderProcessor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,28 +36,21 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.xiaoleilu.hutool.log.Log;
-import com.xiaoleilu.hutool.log.LogFactory;
-
-import kim.zkp.quick.orm.annotation.Table;
-import kim.zkp.quick.orm.session.Session;
-import kim.zkp.quick.orm.sql.SqlInfo;
-import kim.zkp.quick.orm.sql.builder.SqlBuilder;
-import kim.zkp.quick.orm.sql.builder.SqlBuilderProcessor;
-
 /**
  * class       :  CreateTable
- * @author     :  zhukaipeng
+ * @author     :  lds
  * @version    :  1.0  
  * description :  加载Class创建表
  * @see        :  *
  */
 public class CreateTable {
-	private static final Log log = LogFactory.get();
+
 	private Session session;
 	private String packagePath;
 	private SqlBuilderProcessor sqlBuilderProcessor;
-	
+	private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
+
+
 	public CreateTable(Session session,SqlBuilderProcessor sqlBuilderProcessor,String packagePath) {
 		super();
 		this.session = session;
@@ -70,19 +72,19 @@ public class CreateTable {
 			if (table == null || !table.create()) {
 				return ;
 			}
-			log.info("准备创建表:{}",table.tableName());
+			LOGGER.info("准备创建表:{}",table.tableName());
 			try {
 				SqlInfo sqlInfo = sqlBuilderProcessor.getSql(SqlBuilder.SBType.CREATE_TABLE, clzz);
-				log.info("建表SQL:{}",sqlInfo.getSql());
+				LOGGER.info("建表SQL:{}",sqlInfo.getSql());
 				try {
 					session.sqlUpdate(sqlInfo.getSql());
-					log.info("创建成功:{}",table.tableName());
+					LOGGER.info("创建成功:{}",table.tableName());
 				} catch (Exception e) {
-					log.info("该表已存在:{}",table.tableName());
+					LOGGER.info("该表已存在:{}",table.tableName());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				log.error(e, "建表出现异常");
+				LOGGER.error( "建表出现异常",e);
 			}
 		});
 	}
@@ -93,7 +95,7 @@ public class CreateTable {
 			try {
 				clzzs.add(Thread.currentThread().getContextClassLoader().loadClass(fileName));
 			} catch (Exception e) {
-				log.error(e,"加载:{}出错",fileName);
+				LOGGER.error("加载:{}出错",fileName,e);
 			}
 		});
 		return clzzs;

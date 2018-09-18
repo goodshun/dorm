@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017, ZhuKaipeng 朱开鹏 (2076528290@qq.com).
+ * Copyright (c) 2017, lds 刘东顺 (994546508@qq.com).
 
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -58,7 +58,7 @@ public class ClassCache {
 	 * @return       : List<Field>
 	 * @param        : @param clzz
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2018年2月1日
+	 * modified      : lds ,  2018年2月1日
 	 */
 	private static List<Field> getNoJoinAllField(Class<?> clzz){
 		List<Field> list = getAllField(clzz);
@@ -90,7 +90,7 @@ public class ClassCache {
 	 * @return       : List<Field>
 	 * @param        : @param clzz
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年8月29日
+	 * modified      : lds ,  2017年8月29日
 	 * @see          : *
 	 */
 	public static List<Field> getAllFieldByCache(Class<?> clzz){

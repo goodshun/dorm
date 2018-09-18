@@ -1,5 +1,7 @@
 package com.lds.orm.dorm.dao;
 
+import com.lds.orm.dorm.sql.SqlInfo;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

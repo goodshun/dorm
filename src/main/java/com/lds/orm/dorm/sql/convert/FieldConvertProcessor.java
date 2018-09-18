@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017, ZhuKaipeng 朱开鹏 (2076528290@qq.com).
+ * Copyright (c) 2017, lds 刘东顺 (994546508@qq.com).
 
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,9 +19,9 @@
 
 package com.lds.orm.dorm.sql.convert;
 
-import com.xiaoleilu.hutool.log.Log;
-import com.xiaoleilu.hutool.log.LogFactory;
-import kim.zkp.quick.orm.exception.SqlBuilderException;
+import com.lds.orm.dorm.exception.SqlBuilderException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -34,7 +34,7 @@ import java.util.Map;
 public class FieldConvertProcessor {
 	
 	private static final Map<Class<?>,FieldConvert> converts = new HashMap<Class<?>,FieldConvert>();
-	private static final Log log = LogFactory.get();
+	private static final Logger LOGGER = LogManager.getLogger(FieldConvertProcessor.class);
 	static{
 		registerConvert(Boolean.class, new BooleanFieldConvert());
 		registerConvert(String.class, new StringFieldConvert());
@@ -64,7 +64,7 @@ public class FieldConvertProcessor {
 	public static Object toDB(Object o){
 		FieldConvert ac = converts.get(o.getClass());
 		if (ac == null) {
-			log.info("{}未注册java至数据库的类型转换器，无法获取到值",o.getClass());
+			LOGGER.info("{}未注册java至数据库的类型转换器，无法获取到值",o.getClass());
 			return null;
 //			throw new SqlBuilderException(o.getClass()+"未注册转换器");
 		}

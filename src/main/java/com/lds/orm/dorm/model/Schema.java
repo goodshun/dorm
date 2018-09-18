@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017, ZhuKaipeng 朱开鹏 (2076528290@qq.com).
+ * Copyright (c) 2017, lds 刘东顺 (994546508@qq.com).
 
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -38,7 +38,7 @@ public class Schema extends Model<Schema> {
 	 * @return       : Schema
 	 * @param        : @param tableName 表名
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月19日
+	 * modified      : lds ,  2017年9月19日
 	 * @see          : *
 	 */
 	public static Schema open(String tableName){
@@ -59,10 +59,10 @@ public class Schema extends Model<Schema> {
 	 * @param        : @param tableName 表名
 	 * @param        : @param session 数据源对象
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月19日
+	 * modified      : lds ,  2017年9月19日
 	 * @see          : *
 	 */
-	public static Schema open(String tableName,Session session){
+	public static Schema open(String tableName, Session session){
 		Schema s = open(tableName);
 		s.setSession(session);
 		return s;
@@ -74,10 +74,10 @@ public class Schema extends Model<Schema> {
 	 * @param        : @param tableName 表名
 	 * @param        : @param jdbcConfigName 数据源配置文件名
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月19日
+	 * modified      : lds ,  2017年9月19日
 	 * @see          : *
 	 */
-	public static Schema open(String tableName,String jdbcConfigName){
+	public static Schema open(String tableName, String jdbcConfigName){
 		Schema s = open(tableName);
 		s.setSession(jdbcConfigName);
 		return s;
@@ -100,7 +100,7 @@ public class Schema extends Model<Schema> {
 	}
 	/**
 	 * method name   : get 查询
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : @see com.z.quick.orm.model.Model#get()*
 	 */
 	public Schema get() {
@@ -117,7 +117,7 @@ public class Schema extends Model<Schema> {
 	 * description   : 获取所有列
 	 * @return       : Set<String>
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Set<String> columns(){
@@ -132,7 +132,7 @@ public class Schema extends Model<Schema> {
 	 * @return       : Integer
 	 * @param        : @param column
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Integer getInt(String column){
@@ -146,7 +146,7 @@ public class Schema extends Model<Schema> {
 	 * @return       : Long
 	 * @param        : @param column
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Long getLong(String column){
@@ -160,7 +160,7 @@ public class Schema extends Model<Schema> {
 	 * @return       : Double
 	 * @param        : @param column
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Double getDouble(String column){
@@ -174,7 +174,7 @@ public class Schema extends Model<Schema> {
 	 * @return       : Short
 	 * @param        : @param column
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Short getShort(String column){
@@ -188,7 +188,7 @@ public class Schema extends Model<Schema> {
 	 * @return       : Boolean
 	 * @param        : @param column
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Boolean getBoolean(String column){
@@ -202,7 +202,7 @@ public class Schema extends Model<Schema> {
 	 * @return       : String
 	 * @param        : @param column
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public String getStr(String column){
@@ -216,7 +216,7 @@ public class Schema extends Model<Schema> {
 	 * @return       : String
 	 * @param        : @param column
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月22日
+	 * modified      : lds ,  2017年9月22日
 	 */
 	public BigDecimal getBigDecimal(String column){
 		if (!this.isResult()) 
@@ -228,7 +228,7 @@ public class Schema extends Model<Schema> {
 	 * description   : 是否查询到结果
 	 * @return       : boolean
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public boolean isResult(){
@@ -243,7 +243,7 @@ public class Schema extends Model<Schema> {
 	 * description   : 获取所有查询结果
 	 * @return       : Map<String,Object>
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Map<String, Object> getResult() {
@@ -255,7 +255,7 @@ public class Schema extends Model<Schema> {
 	 * @return       : Object
 	 * @param        : @param clzz 转换对象的类型
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Object toObject(Class<?> clzz){

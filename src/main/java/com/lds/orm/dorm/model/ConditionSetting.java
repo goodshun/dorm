@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017, ZhuKaipeng 朱开鹏 (2076528290@qq.com).
+ * Copyright (c) 2017, lds 刘东顺 (994546508@qq.com).
 
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * class       :  LogicOperate
- * @author     :  zhukaipeng
+ * @author     :  lds
  * @version    :  1.0  
  * description :  条件设置类
  * @see        :  @param <T>*
@@ -45,7 +45,7 @@ public abstract class ConditionSetting<T>{
 	 * description   : 获取查询条件为小于的参数
 	 * @return       : Map<String,Object>
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Map<String,Object> getLt() {
@@ -58,7 +58,7 @@ public abstract class ConditionSetting<T>{
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T lt(String column, Object value) {
@@ -73,7 +73,7 @@ public abstract class ConditionSetting<T>{
 	 * @return       : T
 	 * @param        : @param ltAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T lt(Map<String,Object> ltAll) {
@@ -88,7 +88,7 @@ public abstract class ConditionSetting<T>{
 	 * description   : 获取查询条件为大于的参数
 	 * @return       : Map<String,Object>
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Map<String,Object> getGt() {
@@ -101,7 +101,7 @@ public abstract class ConditionSetting<T>{
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T gt(String column, Object value) {
@@ -116,7 +116,7 @@ public abstract class ConditionSetting<T>{
 	 * @return       : T
 	 * @param        : @param gtAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T gt(Map<String,Object> gtAll) {
@@ -131,7 +131,7 @@ public abstract class ConditionSetting<T>{
 	 * description   : 获取查询条件为小于等于的参数
 	 * @return       : Map<String,Object>
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Map<String,Object> getLe() {
@@ -144,7 +144,7 @@ public abstract class ConditionSetting<T>{
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T le(String column, Object value) {
@@ -159,7 +159,7 @@ public abstract class ConditionSetting<T>{
 	 * @return       : T
 	 * @param        : @param gtAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T le(Map<String,Object> leAll) {
@@ -174,7 +174,7 @@ public abstract class ConditionSetting<T>{
 	 * description   : 获取查询条件为大于等于的参数
 	 * @return       : Map<String,Object>
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Map<String,Object> getGe() {
@@ -187,7 +187,7 @@ public abstract class ConditionSetting<T>{
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T ge(String column, Object value) {
@@ -202,7 +202,7 @@ public abstract class ConditionSetting<T>{
 	 * @return       : T
 	 * @param        : @param geAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T ge(Map<String,Object> geAll) {
@@ -217,7 +217,7 @@ public abstract class ConditionSetting<T>{
 	 * description   : 获取查询条件为等于的参数
 	 * @return       : Map<String,Object>
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Map<String,Object> getEq() {
@@ -230,7 +230,7 @@ public abstract class ConditionSetting<T>{
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T eq(String column, Object value) {
@@ -245,7 +245,7 @@ public abstract class ConditionSetting<T>{
 	 * @return       : T
 	 * @param        : @param eqAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T eq(Map<String,Object> eqAll) {
@@ -259,7 +259,7 @@ public abstract class ConditionSetting<T>{
 	 * description   : 获取查询条件为不等于的参数
 	 * @return       : Map<String,Object>
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Map<String,Object> getNeq() {
@@ -272,7 +272,7 @@ public abstract class ConditionSetting<T>{
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T neq(String column, Object value) {
@@ -287,7 +287,7 @@ public abstract class ConditionSetting<T>{
 	 * @return       : T
 	 * @param        : @param neqAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T neq(Map<String,Object> neqAll) {
@@ -301,7 +301,7 @@ public abstract class ConditionSetting<T>{
 	 * description   : 获取查询条件为like的参数
 	 * @return       : Map<String,Object>
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public Map<String,Object> getLike() {
@@ -314,7 +314,7 @@ public abstract class ConditionSetting<T>{
 	 * @param        : @param column
 	 * @param        : @param value
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T like(String column, Object value) {
@@ -329,7 +329,7 @@ public abstract class ConditionSetting<T>{
 	 * @return       : T
 	 * @param        : @param likeAll
 	 * @param        : @return
-	 * modified      : zhukaipeng ,  2017年9月15日
+	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
 	public T like(Map<String,Object> likeAll) {

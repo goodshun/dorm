@@ -25,96 +25,25 @@ import com.lds.orm.dorm.model.Page;
 import java.util.List;
 
 /**
- * class       :  DataBaseManipulation
- * @author     :  lds
- * @version    :  1.0  
- * description :  对象同步操作数据库接口
+ * class       :  SqlDataBaseManipulation
+ * @version    :  1.0
+ * description :  sql同步操作数据库接口
  * @see        :  *
  */
-public interface DataBaseManipulation {
+public interface SqlDataBaseManipulation {
 	/**
-	 * method name   : save 
+	 * method name   : sqlSave 
 	 * description   : 保存
 	 * @return       : int
-	 * @param        : @param o
+	 * @param        : @param sql 保存SQL
+	 * @param        : @param params 参数
 	 * @param        : @return
 	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
-	int save(Object o);
+	int sqlSave(String sql, Object... params);
 	/**
-	 * method name   : batchSave 
-	 * description   : 保存一批数据
-	 * @return       : int
-	 * @param        : @param list
-	 * @param        : @return
-	 * modified      : lds ,  2018年1月28日
-	 */
-//	int batchSave(List<?> list);
-	/**
-	 * method name   : delete 
-	 * description   : 删除
-	 * @return       : int
-	 * @param        : @param o
-	 * @param        : @return
-	 * modified      : lds ,  2017年9月15日
-	 * @see          : *
-	 */
-	int delete(Object o);
-	/**
-	 * method name   : update 
-	 * description   : 更新
-	 * @return       : int
-	 * @param        : @param o
-	 * @param        : @return
-	 * modified      : lds ,  2017年9月15日
-	 * @see          : *
-	 */
-	int update(Object o);
-	/**
-	 * method name   : get 
-	 * description   : 查询
-	 * @return       : Object
-	 * @param        : @param o
-	 * @param        : @return
-	 * modified      : lds ,  2017年9月15日
-	 * @see          : *
-	 */
-	Object get(Object o);
-	/**
-	 * method name   : get 
-	 * description   : 查询
-	 * @return       : Object
-	 * @param        : @param o
-	 * @param        : @param clzz 返回值类型
-	 * @param        : @return
-	 * modified      : lds ,  2017年9月15日
-	 * @see          : *
-	 */
-	Object get(Object o, Class<?> clzz);
-	/**
-	 * method name   : list 
-	 * description   : 列表查询
-	 * @return       : List<Object>
-	 * @param        : @param o
-	 * @param        : @return
-	 * modified      : lds ,  2017年9月15日
-	 * @see          : *
-	 */
-	List<Object> list(Object o);
-	/**
-	 * method name   : list 
-	 * description   : 列表查询
-	 * @return       : List<Object>
-	 * @param        : @param o
-	 * @param        : @param clzz 返回值类型
-	 * @param        : @return
-	 * modified      : lds ,  2017年9月15日
-	 * @see          : *
-	 */
-	List<Object> list(Object o, Class<?> clzz);
-	/**
-	 * method name   : delete 
+	 * method name   : delete
 	 * description   : 删除
 	 * @return       : int
 	 * @param        : @param sql 删除SQL
@@ -123,27 +52,55 @@ public interface DataBaseManipulation {
 	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
+	int sqlDelete(String sql, Object... params);
 	/**
-	 * method name   : page 
-	 * description   : 分页查询
-	 * @return       : Page<Object>
-	 * @param        : @param o
+	 * method name   : update
+	 * description   : 更新
+	 * @return       : int
+	 * @param        : @param sql 更新SQL
+	 * @param        : @param params 参数
 	 * @param        : @return
 	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
-	Page<Object> page(Object o);
+	int sqlUpdate(String sql, Object... params);
 	/**
-	 * method name   : page 
-	 * description   : 分页查询
-	 * @return       : Page<Object>
-	 * @param        : @param o
+	 * method name   : get
+	 * description   : 查询
+	 * @return       : Object
+	 * @param        : @param sql 查询SQL
+	 * @param        : @param params 参数
 	 * @param        : @param clzz 返回值类型
 	 * @param        : @return
 	 * modified      : lds ,  2017年9月15日
 	 * @see          : *
 	 */
-	Page<Object> page(Object o, Class<?> clzz);
+	Object sqlGet(String sql, Class<?> clzz, Object... params);
+	/**
+	 * method name   : list
+	 * description   : 列表查询
+	 * @return       : List<Object>
+	 * @param        : @param sql 查询SQL
+	 * @param        : @param params 参数
+	 * @param        : @param clzz 返回值类型
+	 * @param        : @return
+	 * modified      : lds ,  2017年9月15日
+	 * @see          : *
+	 */
+	List<Object> sqlList(String sql, Class<?> clzz, Object... params);
+	/**
+	 * method name   : page
+	 * description   : 分页查询
+	 * @return       : Page<Object>
+	 * @param        : @param countSql 统计SQL
+	 * @param        : @param listSql 列表查询SQL
+	 * @param        : @param params 参数
+	 * @param        : @param clzz 返回值类型
+	 * @param        : @return
+	 * modified      : lds ,  2017年9月15日
+	 * @see          : *
+	 */
+	Page<Object> sqlPage(String countSql, String listSql, Class<?> clzz, Object... params);
 	
 
 }

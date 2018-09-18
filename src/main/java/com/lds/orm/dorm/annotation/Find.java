@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017, ZhuKaipeng 朱开鹏 (2076528290@qq.com).
+ * Copyright (c) 2017, lds 刘东顺 (994546508@qq.com).
 
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
 /**
  * ******************  类说明  *********************
  * class       :  Find
- * @author     :  zhukaipeng
+ * @author     :  lds
  * @version    :  1.0  
  * description :  在po属性上添加此标签后，该属性会作为联表查询
  * @see        :                        

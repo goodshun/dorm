@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017, ZhuKaipeng 朱开鹏 (2076528290@qq.com).
+ * Copyright (c) 2017, lds 刘东顺 (994546508@qq.com).
 
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,16 +19,17 @@
 
 package com.lds.orm.dorm.sql.builder;
 
-import com.xiaoleilu.hutool.log.Log;
-import com.xiaoleilu.hutool.log.LogFactory;
-import kim.zkp.quick.orm.sql.SqlInfo;
-import kim.zkp.quick.orm.util.JdbcUtils;
+import com.lds.orm.dorm.connection.ConnectionPool;
+import com.lds.orm.dorm.sql.SqlInfo;
+import com.lds.orm.dorm.util.JdbcUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class SqlBuilderProcessor {
-	private static final Log log = LogFactory.get();
+	private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
 	private Map<SqlBuilder.SBType,SqlBuilder> sqlBuilderContainer = new HashMap<SqlBuilder.SBType,SqlBuilder>();
 	
 	public SqlBuilderProcessor(String dbType){
@@ -47,13 +48,13 @@ public class SqlBuilderProcessor {
 		}else if(JdbcUtils.SQLITE.equals(dbType)){
 			sqlBuilderContainer.put(SqlBuilder.SBType.PAGE_LIST, new SQLitePageListSqlBuilder());
 		}else{
-			log.info("No {} db pagelist sql builder",dbType);
+			LOGGER.info("No {} db pagelist sql builder",dbType);
 		}
 		sqlBuilderContainer.put(SqlBuilder.SBType.CREATE_TABLE, new DefaultCreateTableSqlBuilder());
 		
 	}
 	
-	public SqlInfo getSql(SqlBuilder.SBType sBType,Object o){
+	public SqlInfo getSql(SqlBuilder.SBType sBType, Object o){
 		return sqlBuilderContainer.get(sBType).builderSql(o);
 	}
 	

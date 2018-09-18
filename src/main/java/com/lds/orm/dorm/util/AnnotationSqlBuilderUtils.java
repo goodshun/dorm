@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017, ZhuKaipeng 朱开鹏 (2076528290@qq.com).
+ * Copyright (c) 2017, lds 刘东顺 (994546508@qq.com).
 
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,18 +19,18 @@
 
 package com.lds.orm.dorm.util;
 
+import com.lds.orm.dorm.annotation.Condition;
+import com.lds.orm.dorm.annotation.Find;
+import com.lds.orm.dorm.annotation.Join;
+import com.lds.orm.dorm.annotation.OrderBy;
+import com.lds.orm.dorm.cache.ClassCache;
+import com.lds.orm.dorm.common.Constants;
+import com.lds.orm.dorm.exception.SqlBuilderException;
+import com.lds.orm.dorm.model.Schema;
+import com.lds.orm.dorm.sql.convert.FieldConvertProcessor;
+
 import java.lang.reflect.Field;
 import java.util.List;
-
-import kim.zkp.quick.orm.annotation.Condition;
-import kim.zkp.quick.orm.annotation.Find;
-import kim.zkp.quick.orm.annotation.Join;
-import kim.zkp.quick.orm.annotation.OrderBy;
-import kim.zkp.quick.orm.cache.ClassCache;
-import kim.zkp.quick.orm.common.Constants;
-import kim.zkp.quick.orm.exception.SqlBuilderException;
-import kim.zkp.quick.orm.model.Schema;
-import kim.zkp.quick.orm.sql.convert.FieldConvertProcessor;
 
 public class AnnotationSqlBuilderUtils {
 	public static String getTableName(Object o) {

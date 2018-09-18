@@ -1,12 +1,15 @@
 package com.lds.orm.dorm.connection;
 
+import com.lds.orm.dorm.annotation.Join;
+import com.lds.orm.dorm.cache.ClassCache;
 import com.lds.orm.dorm.connection.config.DbConfig;
 import com.lds.orm.dorm.dao.PreparedStatementWrapper;
-import com.lds.orm.dorm.dao.SqlInfo;
 import com.lds.orm.dorm.exception.ConnectionException;
 import com.lds.orm.dorm.exception.ExecuteSqlException;
 import com.lds.orm.dorm.exception.TransactionException;
 import com.lds.orm.dorm.model.Schema;
+import com.lds.orm.dorm.sql.SqlInfo;
+import com.lds.orm.dorm.sql.convert.FieldConvertProcessor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -166,7 +169,7 @@ public class ConnectionProcessor {
                 throw new ExecuteSqlException("Setting sql param error",e);
             }
         }
-        return new PreparedStatementWrapper(stmt, sqlInfo,jdbcConfig.getExecuteTimeMonitor(),jdbcConfig.getMaxExecuteTime());
+        return new PreparedStatementWrapper(stmt, sqlInfo,false,jdbcConfig.getMaxExecuteTime());
     }
 
     private List<Object> parseResultSetToObject(ResultSet rs,Class<?> clzz, SqlInfo sqlInfo) {
@@ -242,10 +245,9 @@ public class ConnectionProcessor {
                 }
                 return result.get(result.keySet().toArray()[0]).toString();
             }
-//			log.debug("result:{}",result);
             return fillResultObject(clzz, result,true);
         } catch (Exception e) {
-            log.error(e, "query result convert java object error");
+            LOGGER.error( "query result convert java object error",e);
         }
         return null;
 
@@ -292,7 +294,7 @@ public class ConnectionProcessor {
                     field.setAccessible(true);
                     field.set(o, FieldConvertProcessor.toJava(field.getType(),v));
                 } catch (Exception e) {
-                    log.error(e, "db type to java type error");
+                    LOGGER.error( "db type to java type error",e);
                 }
             }
         }
@@ -308,11 +310,11 @@ public class ConnectionProcessor {
                 }
             } catch (Exception e) {//此处若获取事务状态异常，直接移除连接，防止连接占用
                 SingleThreadConnectionHolder.removeConnection(dataSource);
-                log.error("close connection error", e);
+                LOGGER.error("close connection error", e);
                 try {
                     x.close();
                 } catch (SQLException e1) {
-                    log.error("close connection error", e1);
+                    LOGGER.error("close connection error", e1);
                 }
             }
         }
@@ -323,7 +325,7 @@ public class ConnectionProcessor {
             try {
                 x.close();
             } catch (Exception e) {
-                log.error("close statement error", e);
+                LOGGER.error("close statement error", e);
             }
         }
     }
@@ -333,7 +335,7 @@ public class ConnectionProcessor {
             try {
                 x.close();
             } catch (Exception e) {
-                log.error("close resultset error", e);
+                LOGGER.error("close resultset error", e);
             }
         }
     }

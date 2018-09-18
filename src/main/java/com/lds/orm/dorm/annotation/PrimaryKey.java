@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017, ZhuKaipeng 朱开鹏 (2076528290@qq.com).
+ * Copyright (c) 2017, lds 刘东顺 (994546508@qq.com).
 
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
 /**
  * ******************  类说明  *********************
  * class       :  NoFind
- * @author     :  zhukaipeng
+ * @author     :  lds
  * @version    :  1.0  
  * description :  PrimaryKey主要用于po更新时指定更新条件用(可指定多个)，如果在字段上添加该注解，则在更新语句中，此字段会出现在where语句后
  * @see        :                        
