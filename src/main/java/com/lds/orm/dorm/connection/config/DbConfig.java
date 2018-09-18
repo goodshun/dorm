@@ -197,7 +197,7 @@ public class DbConfig implements DefaultConfig {
         return packagePath;
     }
 
-    public boolean isPrintSql() {
+    public boolean getPrintSql() {
         return printSql;
     }
 }
